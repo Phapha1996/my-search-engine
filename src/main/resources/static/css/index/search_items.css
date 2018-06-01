@@ -1,0 +1,88 @@
+
+#nope:hover{
+    border: 1px solid #9E9E9E;
+    outline: 0;
+}
+/*获取焦点之后显示颜色*/
+#nope:focus{
+    border-color: #f66666;
+    outline: 0;
+}
+
+.field{
+    margin: 0px;
+    padding: 0px;
+}
+.autocompleter {
+    width: 100%;
+    background: #fff;
+    position: relative;
+    /*top: 60px;*/
+    left: 0;
+    z-index: 100;
+}
+
+.autocompleter,
+.autocompleter-hint {
+    position: relative;
+}
+
+.autocompleter-list {
+    margin: 0px;
+    padding: 0px;
+    box-shadow: inset 0px 0px 6px rgba(0,0,0,0.1);
+    list-style: none;
+    text-align: left;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.autocompleter-item-selected {
+    background: #ffffff;
+}
+
+.autocompleter-item {
+    padding: 6px 12px;
+    color: #7A7A7A;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.autocompleter-item:hover {
+    background: #F0F0F0;
+}
+
+.autocompleter-item strong {
+    /*background: #f9de8f;*/
+    text-shadow: 0 1px 0 #ffffff;
+}
+
+.autocompleter-item span {
+    color: #bbbbbb;
+}
+
+.autocompleter-hint {
+    color: #ccc;
+    text-align: left;
+    top: -31px;
+    font-weight: 400;
+    left: 0;
+    width: 100%;
+    /*padding: 12px 12px 12px 15px;*/
+    margin: 0px;
+    padding: 0px 0px 0px 15px;
+    font-size: 16px;
+    display: none;
+}
+
+.autocompleter-hint span {
+    color: transparent;
+}
+
+.autocompleter-hint-show {
+    display: block;
+}
+
+.autocompleter-closed {
+    display: none;
+}

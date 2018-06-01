@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fager搜索</title>
+    <link rel="stylesheet" th:href="@{/css/index/normalize.css}">
+    <link rel="stylesheet" th:href="@{/css/index/search_items.css}">
+    <link rel="stylesheet" th:href="@{/css/result/result.css}">
+    <style type="text/css">
+        html {
+            line-height: 20px;
+            font-size: 13px;
+            font-family: arial, 'pingfang sc', stheiti, simsun, sans-serif;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        h3, div {
+            margin: 0px;
+            padding: 0px;
+            display: block;
+        }
+
+        em {
+            color: red;
+            font-weight: normal;
+            text-decoration: underline;
+            color: #c00;
+            font-style: normal;
+        }
+
+        body {
+            margin: 0 auto;
+            font-family: 'Helvetica', 'Arial', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <!-- 头部 -->
+    <div id="header">
+        <div class="head-logo">
+            <a th:href="@{/}"><img th:src="@{/images/fager.png}" width="104px" height="38px"></a>
+        </div>
+        <form th:action="@{/search/doSearch}" method="post">
+            <div class="search-box">
+                <div class="field">
+                    <input type="text" name="queryStr" id="nope" placeholder="输入关键字" maxlength="100" len="80"
+                           th:value="${queryStr}"/>
+                </div>
+            </div>
+            <div class="enter-input">
+                <input type="submit" value="搜索" class="submit"/>
+            </div>
+        </form>
+    </div>
+    <div id="content">
+        <div class="search-info">
+            <span class="other-msg">Fager已为您找到<span class="other-msg"
+                                                    th:text="${page.totalRecord}">0</span>条相关结果&nbsp</span>
+            <span class="other-msg">检索花费时间:<span class="other-msg" th:text="${spendTime}"></span>ms</span>
+        </div>
+        <div class="items">
+            <div class="item" th:each="article : ${page.items}">
+                <h3 class="i-title">
+                    <a th:href="${article.blogUrl}" class="link-title" target="blank" th:utext="${article.title}">
+                        暂时还没有数据
+                    </a>
+                </h3>
+                <div class="description" th:utext="${article.content} + '...'">
+                    <!--TODO 测试代码，需要删除-->
+                    <em>亚索</em>是一个百折不屈的艾欧尼亚人，也是一名身手敏捷的<em>剑客</em>，能够运用风的力量对抗敌人。年少轻狂的他曾为了荣誉而一再地损失珍贵的东西，他的职位、他的导师、最后是他的亲兄弟。 1、亚索是一个百折不屈的艾欧尼亚人...
+                </div>
+                <div class="tag" th:text="${article.tags}">暂无数据</div>
+                <div class="item-footer">
+                    <a th:href="${article.blogUrl}" target="blank" th:text="${article.blogUrl}">暂无数据</a>&nbsp
+                    <span class="time" th:text="${{article.time}}">暂无数据</span>
+                </div>
+            </div>
+            <!--no result do this-->
+            <div th:if="${page.totalRecord == 0}">
+                <div class="completion">
+                    <p class="no_res">抱歉，没有找到与“<em th:text="${queryStr}"></em>”相关的结果。</p>
+                    <h3 class="adv">建议您：</h3>
+                    <ul class="no_res_adv">
+                        <li>请检查您输入的关键词是否有错误;</li>
+                        <li>换另一个相似的词，或常见的词试试;</li>
+                        <li>您可以查看Fager帮助,或者向作者Caizhfy@163.com提出宝贵的建议</li>
+                        <li>Fager非常感谢您的使用</li>
+                    </ul>
+                </div>
+                <div class="completion"></div>
+                <div class="completion"></div>
+            </div>
+            <div th:if="${page.totalRecord == 1}">
+                <div class="completion"></div>
+                <div class="completion"></div>
+            </div>
+            <div class="completion" th:if="${page.totalRecord == 2}"></div>
+            <!-- 相关搜索 -->
+            <div class="hint-box" th:if="${page.totalRecord > 0 && #lists.size(relates)>0}">
+                <table class="hint-table">
+                    <caption style="padding-bottom: 5px;">相关搜索</caption>
+                    <tbody>
+                    <tr>
+                        <td th:each="relate : ${relates}">
+                            <a th:attr="href=${relate.link}" target="blank" th:text="${relate.label}">暂无数据</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="bottom-logo">
+                <img th:src="@{/images/fageeeeer.png}" width="218" height="38px">
+            </div>
+            <div id="pagebar_container">
+                <a th:attr="href='/search/doSearch?pageNum=' + ${page.currentPage - 1} + '&queryStr=' + ${queryStr}"
+                   class="page-num-up-down" style="background-color: #B0E2FF" th:if="${page.currentPage > 1}"
+                   th:text="|上一页|"></a>
+                <th:block th:each="range,iterStat : ${page.pageRange}">
+                    <a th:style="'background-color:' + ${pageColors[iterStat.index]}" class="page-num"
+                       th:text="${range}"
+                       th:attr="href='/search/doSearch?pageNum=' + ${range} + '&queryStr=' + ${queryStr}"
+                       th:if="${range ne #strings.toString(page.currentPage)}"></a>
+                    <span class="cuur" th:if="${range eq #strings.toString(page.currentPage)}">^_^</span>
+                </th:block>
+
+                <a th:attr="href='/search/doSearch?pageNum=' + ${page.currentPage + 1} + '&queryStr=' + ${queryStr}"
+                   class="page-num-up-down" style="background-color: #B0E2FF"
+                   th:if="${!(page.currentPage == page.totalPage) && page.totalPage>1}" th:text="|下一页|"></a>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <span>免责声明</span>
+        <span>© 2018 FAGER 毕业设计</span>
+        <span>数据由CSDN-Gitbook提供</span>
+        <span>logo设计者-梁媛</span>
+        <a href="">意见反馈邮箱: Caizhfy@163.com - 蔡智法</a>
+    </div>
+</div>
+<script th:src="@{/js/pub/jquery.min.js}"></script>
+<script th:src="@{/js/index/jquery.autocompleter.js}"></script>
+<script th:src="@{/js/index/search_items.js}"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Fager搜索</title>
+    <link rel="stylesheet" th:href="@{/css/index/normalize.css}"/>
+    <link rel="stylesheet" th:href="@{/css/index/search_items.css}"/>
+    <link rel="stylesheet" th:href="@{/css/index/index.css}"/>
+    <style type="text/css">
+        html {
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        body {
+            margin: 0 auto;
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            text-align: center;
+            /*color: #ffffff;*/
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="header"></div>
+    <div id="content">
+        <div class="c-logo">
+				<span class="logo">
+					<img th:src="@{/images/fager.png}"/>
+				</span>
+        </div>
+        <div class="c-search-box">
+            <div class="c-form">
+                <form th:action="@{/search/doSearch}" method="post">
+                    <div class="c-sea-input">
+                        <div class="field">
+                            <input type="text" name="queryStr" id="nope" placeholder="更懂你的技术栈" maxlength="100"
+                                   len="80"/>
+                        </div>
+                    </div>
+                    <div class="c-enter-input">
+                        <input type="submit" value="搜索" class="submit"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <span class="stat"><a href="">关于Fager - about Fager</a></span><br/>
+        <span class="stat">本检索系统仅用于毕设自娱自乐 - 请勿用于商业用途 - 作者：Caizhf - 拥有最终解释权</span><br/>
+        <span class="stat">免责声明 - 意见反馈邮箱：<a href="https://mail.163.com">Caizhfy@163.com</a></span><br/>
+        <span class="stat">版权所有，违者必究</span><br/>
+    </div>
+</div>
+<script th:src="@{/js/pub/jquery.min.js}"></script>
+<script th:src="@{/js/index/jquery.autocompleter.js}"></script>
+<script th:src="@{/js/index/search_items.js}"></script>
+</body>
+</html>
