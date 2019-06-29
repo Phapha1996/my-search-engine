@@ -68,7 +68,7 @@ public class ScheduleConfiguration implements SchedulingConfigurer, AsyncConfigu
         //创建一个线程池调度器
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         //初始化20个线程
-        scheduler.setPoolSize(10);
+        scheduler.setPoolSize(20);
         //设置线程前缀
         scheduler.setThreadNamePrefix("task-");
         //等待时长

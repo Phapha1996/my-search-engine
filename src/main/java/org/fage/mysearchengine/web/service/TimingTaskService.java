@@ -100,7 +100,16 @@ public class TimingTaskService {
      *//*
     @Scheduled(cron = "0 0 3 * * 4")
     public void spiderTask(){
-
+        try {
+            ServletContext servletContext = request.getServletContext();
+            Spider csdnSpider = spiders.csdnSpider(true,10);
+            servletContext.setAttribute("csdnSpider", csdnSpider);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
+            return "启动失败,请查看失败信息...";
+        }
+        return "The csdn spider is starting...";
     }
 
     *//**

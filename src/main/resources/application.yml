@@ -1,6 +1,6 @@
 #server config
 server:
-  port: 80
+  port: 8080
   context-path: /
   tomcat:
     uri-encoding: UTF-8
